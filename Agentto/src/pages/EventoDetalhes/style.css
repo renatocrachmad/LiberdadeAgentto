@@ -1,0 +1,112 @@
+.page-container {
+  display: flex;
+  justify-content: center;
+  padding: 20px;
+  background-color: #f5f5f5;
+  min-height: 100vh;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.event-details-container {
+  max-width: 600px;
+  width: 100%;
+  background-color: #ffffff;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.event-details-container h2 {
+  color: #8b4513;
+  margin-bottom: 20px;
+}
+
+.event-details-container label {
+  display: block;
+  color: #b8860b;
+  margin-bottom: 5px;
+  font-weight: bold;
+}
+
+.event-details-container input,
+.event-details-container textarea {
+  width: 100%;
+  padding: 8px;
+  margin-bottom: 15px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  font-size: 1em;
+}
+
+.event-details-container input[type="date"], 
+.event-details-container input[type="time"] {
+  width: 100%; 
+  padding: 8px;
+  margin-bottom: 15px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  font-size: 1em;
+}
+
+.event-details-container textarea {
+  resize: vertical;
+}
+
+.button-group {
+  display: flex;
+  gap: 10px;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  margin-top: 20px;
+}
+
+.save-btn,
+.cancel-btn,
+.edit-btn,
+.pdf-btn {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  padding: 8px 12px;
+  font-size: 1em;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.save-btn {
+  background-color: #8b4513;
+  color: #fff;
+}
+
+.cancel-btn {
+  background-color: #b22222;
+  color: #fff;
+}
+
+.edit-btn {
+  background-color: #1e90ff;
+  color: #fff;
+}
+
+.pdf-btn {
+  background-color: #228b22;
+  color: #fff;
+}
+
+.save-btn:hover {
+  background-color: #a0522d;
+}
+
+.cancel-btn:hover {
+  background-color: #cd5c5c;
+}
+
+.edit-btn:hover {
+  background-color: #4682b4;
+}
+
+.pdf-btn:hover {
+  background-color: #32cd32;
+}

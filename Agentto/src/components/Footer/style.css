@@ -1,0 +1,17 @@
+.footer {
+    background-color: #8b4513; /* Marrom */
+    color: white;
+    padding: 10px;
+    text-align: center;
+  }
+  
+  .social-links a {
+    color: white;
+    margin: 0 10px;
+    text-decoration: none;
+  }
+  
+  .social-links a:hover {
+    color: #b8860b; /* Dourado */
+  }
+  

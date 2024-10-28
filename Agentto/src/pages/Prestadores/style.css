@@ -1,0 +1,55 @@
+.prestadores-container {
+    padding: 20px;
+    background-color: #f5f5f5;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    color: #8b4513; 
+  }
+  
+  .prestadores-container h2 {
+    color: #8b4513;
+    margin-bottom: 20px;
+  }
+  
+  .prestadores-form {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    background-color: #fff;
+    padding: 20px;
+    border: 2px solid #d4af37; 
+    border-radius: 8px;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+    width: 100%;
+    max-width: 500px;
+  }
+  
+  .prestadores-form label {
+    font-weight: bold;
+    color: #8b4513;
+  }
+  
+  .prestadores-form input {
+    padding: 10px;
+    border: 1px solid #d4af37;
+    border-radius: 5px;
+    color: #8b4513;
+  }
+  
+  .prestadores-form .btn-submit {
+    padding: 10px;
+    background-color: #d4af37; 
+    color: white;
+    font-weight: bold;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  
+  .prestadores-form .btn-submit:hover {
+    background-color: #8b4513; 
+  }
+  

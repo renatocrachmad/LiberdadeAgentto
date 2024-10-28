@@ -1,0 +1,64 @@
+
+html, body {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    
+  }
+  
+  .home-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 20px;
+    background-color: #ffffff; 
+    min-height: 100vh; 
+    width: 100%;
+    box-sizing: border-box;
+  }
+  
+  h2 {
+    color: #8b5e3c; 
+  }
+  
+  p {
+    color: #d4af37; 
+    font-size: 1.2em;
+  }
+  
+  .home-grid {
+    display: flex;
+    gap: 20px;
+    margin: 20px 0;
+  }
+  
+  .grid-item {
+    padding: 20px;
+    background-color: #d4af37; 
+    color: white;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    border: none;
+  }
+  
+  .grid-item:hover {
+    background-color: #8b5e3c; 
+  }
+  
+  .calendar {
+    margin-top: 30px;
+    width: 100%;
+    max-width: 600px;
+    text-align: center;
+  }
+  
+  .calendar-placeholder {
+    background-color: #fff;
+    border: 2px solid #d4af37; 
+    padding: 20px;
+    border-radius: 10px;
+  }
+  
