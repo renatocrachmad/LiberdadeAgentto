@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { FaCalendarCheck, FaTimes, FaEdit, FaFilePdf } from 'react-icons/fa';
+import { FaCalendarCheck, FaTimes, FaEdit, FaFilePdf, FaSearch } from 'react-icons/fa';
 import { jsPDF } from 'jspdf';
 import './style.css';
 
@@ -16,15 +16,26 @@ const EventoDetalhes = () => {
     observacao: '',
   });
 
+  const formatCurrency = (value) => {
+    return new Intl.NumberFormat('pt-BR', {
+      style: 'currency',
+      currency: 'BRL',
+    }).format(value);
+  };
+
   const handleChange = (e) => {
+    const { name, value } = e.target;
+
     setEventData({
       ...eventData,
-      [e.target.name]: e.target.value,
+      [name]: 
+        name === 'valorSinal' || name === 'valorTotal' 
+          ? formatCurrency(value.replace(/[^0-9]/g, '') / 100) 
+          : value,
     });
   };
 
   const handleSave = () => {
-    // Lógica para salvar os dados
     alert('Evento agendado com sucesso!');
   };
 
@@ -34,8 +45,6 @@ const EventoDetalhes = () => {
     doc.setFontSize(16);
     doc.text("Contrato de Evento", 20, 20);
 
-    // Adicionando detalhes do evento
-    doc.setFontSize(12);
     const details = [
       `Cidade: ${eventData.cidade}`,
       `Local: ${eventData.local}`,
@@ -43,16 +52,34 @@ const EventoDetalhes = () => {
       `Hora de Início: ${eventData.horaInicio}`,
       `Hora de Fim: ${eventData.horaFim}`,
       `Nome do Contratante: ${eventData.contratante}`,
-      `Valor do Sinal: R$ ${eventData.valorSinal}`,
-      `Valor Total: R$ ${eventData.valorTotal}`,
+      `Valor do Sinal: ${eventData.valorSinal}`,
+      `Valor Total: ${eventData.valorTotal}`,
       `Observação: ${eventData.observacao}`,
     ];
     
     details.forEach((line, index) => {
-      doc.text(line, 20, 30 + (index * 10)); // espaçamento de 10 entre as linhas
+      doc.text(line, 20, 30 + (index * 10));
     });
 
     doc.save(`contrato_evento_${eventData.contratante}.pdf`);
+  };
+
+  const handleFindEvent = async () => {
+    try {
+      const response = await fetch('https://671fe606e7a5792f052fe989.mockapi.io/:endpoint'); 
+      const data = await response.json();
+
+      const event = data[eventData.contratante];
+      if (event) {
+        setEventData(event);
+        alert("Evento localizado com sucesso!");
+      } else {
+        alert("Evento não encontrado!");
+      }
+    } catch (error) {
+      console.error("Erro ao buscar evento:", error);
+      alert("Ocorreu um erro ao localizar o evento.");
+    }
   };
 
   return (
@@ -110,7 +137,7 @@ const EventoDetalhes = () => {
 
         <label>Valor do Sinal:</label>
         <input
-          type="number"
+          type="text"
           name="valorSinal"
           value={eventData.valorSinal}
           onChange={handleChange}
@@ -118,7 +145,7 @@ const EventoDetalhes = () => {
 
         <label>Valor Total:</label>
         <input
-          type="number"
+          type="text"
           name="valorTotal"
           value={eventData.valorTotal}
           onChange={handleChange}
@@ -143,6 +170,9 @@ const EventoDetalhes = () => {
           </button>
           <button onClick={handleGenerateContract} className="pdf-btn">
             <FaFilePdf /> Gerar Contrato
+          </button>
+          <button onClick={handleFindEvent} className="find-btn">
+            <FaSearch /> Localizar Evento
           </button>
         </div>
       </div>

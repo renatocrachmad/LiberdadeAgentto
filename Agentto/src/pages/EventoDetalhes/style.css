@@ -57,14 +57,15 @@
   display: flex;
   gap: 10px;
   justify-content: space-between;
-  flex-wrap: wrap;
+  flex-wrap: nowrap; /* Para manter todos os botões na mesma linha */
   margin-top: 20px;
 }
 
 .save-btn,
 .cancel-btn,
 .edit-btn,
-.pdf-btn {
+.pdf-btn,
+.find-btn {
   display: flex;
   align-items: center;
   gap: 5px;
@@ -73,6 +74,8 @@
   border: none;
   border-radius: 5px;
   cursor: pointer;
+  flex: 1; /* Faz com que todos os botões tenham a mesma largura */
+  text-align: center;
 }
 
 .save-btn {
@@ -95,6 +98,11 @@
   color: #fff;
 }
 
+.find-btn {
+  background-color: #ffa500;
+  color: #fff;
+}
+
 .save-btn:hover {
   background-color: #a0522d;
 }
@@ -109,4 +117,8 @@
 
 .pdf-btn:hover {
   background-color: #32cd32;
+}
+
+.find-btn:hover {
+  background-color: #ff8c00;
 }
