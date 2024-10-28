@@ -1,5 +1,5 @@
 .footer {
-    background-color: #8b4513; /* Marrom */
+    background-color: #8b4513; 
     color: white;
     padding: 10px;
     text-align: center;
@@ -12,6 +12,6 @@
   }
   
   .social-links a:hover {
-    color: #b8860b; /* Dourado */
+    color: #b8860b; 
   }
   
