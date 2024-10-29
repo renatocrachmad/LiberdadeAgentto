@@ -1,17 +1,40 @@
 import React from 'react';
 import './style.css';
 
-const Financeiro = () => {
+const Financeiro = ({ eventData }) => {
+  
   const financialData = [
-    { mes: 'Janeiro', custos: 500, recebido: 1000, lucro: 500, projecao: 1500 },
-    { mes: 'Fevereiro', custos: 600, recebido: 1200, lucro: 600, projecao: 1600 },
-    { mes: 'Março', custos: 700, recebido: 1400, lucro: 700, projecao: 1700 },
-    
+    { mes: 'Janeiro', custos: 500, recebido: 1000 },
+    { mes: 'Fevereiro', custos: 600, recebido: 1200 },
+    { mes: 'Março', custos: 700, recebido: 1400 },
   ];
+
+  
+  const calculoProjecao = (lucro) => lucro * 1.5;
+
+  
+  const addEventDataToFinancialData = () => {
+   
+    if (!eventData || !eventData.data) {
+      console.error("eventData não está definido ou não possui a propriedade 'data'.");
+      return [];
+    }
+
+    const newData = {
+      mes: new Date(eventData.data).toLocaleString('pt-BR', { month: 'long' }),
+      custos: parseFloat(eventData.valorSinal.replace(/[^0-9,-]+/g, "").replace(',', '.')) || 0,
+      recebido: parseFloat(eventData.valorTotal.replace(/[^0-9,-]+/g, "").replace(',', '.')) || 0,
+    };
+
+   
+    return [...financialData, newData];
+  };
+
+  const updatedFinancialData = addEventDataToFinancialData();
 
   return (
     <div className="financeiro-container">
-      <h2>Planilha de Contabilidade</h2>
+      <h2>Contabilidade</h2>
       <table className="financial-table">
         <thead>
           <tr>
@@ -23,15 +46,20 @@ const Financeiro = () => {
           </tr>
         </thead>
         <tbody>
-          {financialData.map((data, index) => (
-            <tr key={index}>
-              <td>{data.mes}</td>
-              <td>R${data.custos.toFixed(2)}</td>
-              <td>R${data.recebido.toFixed(2)}</td>
-              <td>R${data.lucro.toFixed(2)}</td>
-              <td>R${data.projecao.toFixed(2)}</td>
-            </tr>
-          ))}
+          {updatedFinancialData.map((data, index) => {
+            const lucro = data.recebido - data.custos;
+            const projecao = calculoProjecao(lucro);
+
+            return (
+              <tr key={index}>
+                <td>{data.mes}</td>
+                <td>R${data.custos.toFixed(2)}</td>
+                <td>R${data.recebido.toFixed(2)}</td>
+                <td>R${lucro.toFixed(2)}</td>
+                <td>R${projecao.toFixed(2)}</td>
+              </tr>
+            );
+          })}
         </tbody>
       </table>
     </div>

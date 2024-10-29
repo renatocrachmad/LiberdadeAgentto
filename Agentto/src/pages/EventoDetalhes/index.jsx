@@ -1,9 +1,9 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { FaCalendarCheck, FaTimes, FaEdit, FaFilePdf, FaSearch } from 'react-icons/fa';
 import { jsPDF } from 'jspdf';
 import './style.css';
 
-const EventoDetalhes = () => {
+const EventoDetalhes = ({ atualizarContabilidade }) => {
   const [eventData, setEventData] = useState({
     cidade: '',
     local: '',
@@ -16,6 +16,8 @@ const EventoDetalhes = () => {
     observacao: '',
   });
 
+  const [valorRestante, setValorRestante] = useState('');
+
   const formatCurrency = (value) => {
     return new Intl.NumberFormat('pt-BR', {
       style: 'currency',
@@ -25,7 +27,6 @@ const EventoDetalhes = () => {
 
   const handleChange = (e) => {
     const { name, value } = e.target;
-
     setEventData({
       ...eventData,
       [name]: 
@@ -35,7 +36,24 @@ const EventoDetalhes = () => {
     });
   };
 
+  
+  useEffect(() => {
+    const sinal = parseFloat(eventData.valorSinal.replace(/[^0-9,-]+/g,"").replace(',', '.')) || 0;
+    const total = parseFloat(eventData.valorTotal.replace(/[^0-9,-]+/g,"").replace(',', '.')) || 0;
+    const restante = total - sinal;
+
+    setValorRestante(formatCurrency(restante));
+  }, [eventData.valorSinal, eventData.valorTotal]);
+
   const handleSave = () => {
+    
+    atualizarContabilidade({
+      mes: new Date(eventData.data).toLocaleString('pt-BR', { month: 'long' }),
+      custos: parseFloat(eventData.valorSinal.replace(/[^0-9,-]+/g,"").replace(',', '.')),
+      recebido: parseFloat(eventData.valorTotal.replace(/[^0-9,-]+/g,"").replace(',', '.')),
+      lucro: parseFloat(valorRestante.replace(/[^0-9,-]+/g,"").replace(',', '.')),
+      projecao: parseFloat(eventData.valorTotal.replace(/[^0-9,-]+/g,"").replace(',', '.')) * 1.1, // Exemplo de projeção
+    });
     alert('Evento agendado com sucesso!');
   };
 
@@ -54,6 +72,7 @@ const EventoDetalhes = () => {
       `Nome do Contratante: ${eventData.contratante}`,
       `Valor do Sinal: ${eventData.valorSinal}`,
       `Valor Total: ${eventData.valorTotal}`,
+      `Valor Restante: ${valorRestante}`,
       `Observação: ${eventData.observacao}`,
     ];
     
@@ -149,6 +168,14 @@ const EventoDetalhes = () => {
           name="valorTotal"
           value={eventData.valorTotal}
           onChange={handleChange}
+        />
+
+        <label>Valor Restante:</label>
+        <input
+          type="text"
+          name="valorRestante"
+          value={valorRestante}
+          readOnly
         />
 
         <label>Observação:</label>
